@@ -1,0 +1,88 @@
+erDiagram
+    AUTHORS {
+        int id PK
+        varchar name
+    }
+    BOOKS {
+        int id PK
+        varchar title
+        int author_id FK
+        int publisher_id FK
+        int genre_id FK
+        varchar ISBN
+        int number_of_pages
+    }
+    PUBLISHERS {
+        int id PK
+        varchar name
+    }
+    GENRES {
+        int id PK
+        varchar name
+    }
+    NOTIFICATIONS {
+        int id PK
+        int user_id FK
+        enum notification_type
+        varchar message
+        date sending_date
+    }
+    PAYMENTS {
+        int id PK
+        int user_id FK
+        date payment_date
+        enum payment_status
+        decimal amount
+    }
+    USERS {
+        int id PK
+        varchar first_name
+        varchar last_name
+        varchar username
+        varchar password
+        varchar token
+        varchar email
+        varchar phone
+        int role_id FK
+    }
+    ROLES {
+        int id PK
+        varchar name
+    }
+    DELIVERIES {
+        int id PK
+        int user_id FK
+        int book_id FK
+        date order_date
+        enum delivery_status
+    }
+    RENTALS {
+        int id PK
+        int user_id FK
+        int book_id FK
+        date rental_date
+        date return_date
+        enum rental_status
+    }
+    QUEUE {
+        int id PK
+        int book_id FK
+        int user_id FK
+        enum status
+    }
+    RESERVATIONS {
+        int id PK
+        int user_id FK
+        int book_id FK
+        date reservation_date
+    }
+    AUTHORS ||--o{ BOOKS : "has"
+    PUBLISHERS ||--o{ BOOKS : "publishes"
+    GENRES ||--o{ BOOKS : "categorizes"
+    USERS ||--o{ NOTIFICATIONS : "receives"
+    USERS ||--o{ PAYMENTS : "makes"
+    USERS ||--o{ DELIVERIES : "orders"
+    USERS ||--o{ RENTALS : "rents"
+    USERS ||--o{ QUEUE : "queues"
+    USERS ||--o{ RESERVATIONS : "reserves"
+    ROLES ||--o{ USERS : "assigns"
