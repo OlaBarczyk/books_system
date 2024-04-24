@@ -35,7 +35,7 @@ public class GenreController {
     public ResponseEntity<String> addGenre(@Valid @RequestBody Genre genre) {
         log.info("A request to add a species has been received: {}", genre);
         genreService.addGenre(genre);
-        log.info("Species successfully added: {}", genre);
+        log.info("Genres successfully added: {}", genre);
         return ResponseEntity.status(HttpStatus.CREATED).body("Created!");
     }
 
@@ -49,7 +49,7 @@ public class GenreController {
 
     @DeleteMapping("/deleteGenre/{id}")
     public ResponseEntity<String> deleteGenre(@PathVariable Long id) {
-        log.info("A request has been received to remove the species with id: {}", id);
+        log.info("A request has been received to remove the genres with id: {}", id);
         genreService.deleteGenre(id);
         log.info("Genre with ID {} has been deleted successfully", id);
         return ResponseEntity.status(HttpStatus.OK).body("Deleted!");
@@ -58,7 +58,7 @@ public class GenreController {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handleValidationExceptions(MethodArgumentNotValidException ex) {
         String errorMessage = ex.getBindingResult().getAllErrors().stream()
-                .map(MessageSourceResolvable::getDefaultMessage) // Poprawiony import
+                .map(MessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.joining(", "));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Validation error: " + errorMessage);
     }

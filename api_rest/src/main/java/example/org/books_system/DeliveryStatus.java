@@ -8,27 +8,23 @@ import jakarta.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
 @Entity
 @JsonInclude(Include.NON_NULL)
-public class Author {
+public class DeliveryStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @JsonProperty("id")
     private Long id;
 
-    @Setter
-    @JsonProperty("firstName")
+    @JsonProperty("name")
     @NotBlank
-    private String firstName;
-    @Setter
-    @JsonProperty("lastName")
-    @NotBlank
-    private String lastName;
+    private String name;
+
+    public Long getId() {
+        return id;
+    }
 
     public void setId(Long id) {
         // Validation of incoming ID before setting
@@ -38,5 +34,11 @@ public class Author {
             throw new IllegalArgumentException("The author ID cannot be null");
         }
     }
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 }

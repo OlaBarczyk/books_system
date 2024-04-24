@@ -39,11 +39,11 @@ public class  LoginController {
             @RequestParam(required = false) String password) {
 
         if (StringUtils.isEmpty(login) || StringUtils.isEmpty(password)) {
-            return generateLoginResponse("Podaj login i hasło!", HttpStatus.BAD_REQUEST);
+            return generateLoginResponse("Enter your login and password!", HttpStatus.BAD_REQUEST);
         } else if ("test".equals(login) && "123456".equals(password)) {
-            return generateLoginResponse("Poprawne dane!", HttpStatus.OK);
+            return generateLoginResponse("The correct data!", HttpStatus.OK);
         } else {
-            return generateLoginResponse("Zły login lub hasło!", HttpStatus.UNAUTHORIZED);
+            return generateLoginResponse("Wrong login or password!", HttpStatus.UNAUTHORIZED);
         }
     }
 
@@ -52,16 +52,16 @@ public class  LoginController {
 
         if (loginRequest.getUsername() == null || loginRequest.getUsername().isEmpty() ||
                 loginRequest.getPassword() == null || loginRequest.getPassword().isEmpty()) {
-            return generateLoginResponse("Podaj login i hasło!", HttpStatus.BAD_REQUEST);
+            return generateLoginResponse("Enter your login and password!", HttpStatus.BAD_REQUEST);
         } else if ("test".equals(loginRequest.getUsername()) && "1234".equals(loginRequest.getPassword())) {
-            return generateLoginResponse("Poprawne dane!", HttpStatus.OK);
+            return generateLoginResponse("The correct data!", HttpStatus.OK);
         } else {
-            return generateLoginResponse("Zły login lub hasło!", HttpStatus.UNAUTHORIZED);
+            return generateLoginResponse("Wrong login or password!", HttpStatus.UNAUTHORIZED);
         }
     }
 
 
-    // Add a book to the array
+
 
 }
 

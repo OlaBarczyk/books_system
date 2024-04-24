@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -12,12 +14,15 @@ import javax.validation.constraints.NotNull;
 @JsonInclude(Include.NON_NULL)
 public class Book {
 
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonProperty("id")
     private Long id;
 
 
+    @Getter
+    @Setter
     @NotBlank
     @JsonProperty("title")
     public String title;
@@ -41,23 +46,12 @@ public class Book {
     @JsonProperty("isbn")
     private long isbn;
 
+    @Getter
     @NotNull
     @JsonProperty("number_of_pages")
     private int number_of_pages;
 
     // Getters and setters for all other fields (publisher and genre)
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getTitle() {
-        return title;
-    }
 
     public void setISBN(long isbn) {
         this.isbn = isbn;
@@ -69,10 +63,6 @@ public class Book {
 
     public void setNumber_of_pages(int number_of_pages) {
         this.number_of_pages = number_of_pages;
-    }
-
-    public int getNumber_of_pages() {
-        return number_of_pages;
     }
 
     public Author getAuthor() {

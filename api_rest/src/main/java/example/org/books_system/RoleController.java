@@ -20,39 +20,39 @@ import org.springframework.context.MessageSourceResolvable;
 
 @RestController
 @Slf4j
-public class AuthorController {
+public class RoleController {
 
     @Autowired
-    private AuthorService authorService;
+    private RoleService roleService;
 
-    @GetMapping("/getAuthors")
-    public ResponseEntity<List<Author>> getAuthors() {
-        List<Author> authors = authorService.getAuthors();
-        return new ResponseEntity<>(authors, HttpStatus.OK);
+    @GetMapping("/getRoles")
+    public ResponseEntity<List<Role>> getRoles() {
+        List<Role> roles = roleService.getRoles();
+        return new ResponseEntity<>(roles, HttpStatus.OK);
     }
 
-    @PutMapping("/addAuthor")
-    public ResponseEntity<String> addAuthor(@Valid @RequestBody Author author) {
-        log.info("A request to add an author has been received: {}", author);
-        authorService.addAuthor(author);
-        log.info("Author successfully added: {}", author);
+    @PutMapping("/addRole")
+    public ResponseEntity<String> addRole(@Valid @RequestBody Role role) {
+        log.info("A request to add a role was received: {}", role);
+        roleService.addRole(role);
+        log.info("\n" +
+                "Role successfully added\n: {}", role);
         return ResponseEntity.status(HttpStatus.CREATED).body("Created!");
     }
 
-    @PostMapping("/updateAuthor")
-    public ResponseEntity<String> updateAuthor(@Valid @RequestBody Author author) {
-        log.info("\n" +
-                "Author update request received: {}", author);
-        authorService.updateAuthor(author);
-        log.info("Author updated successfully: {}", author);
+    @PostMapping("/updateRole")
+    public ResponseEntity<String> updateRole(@Valid @RequestBody Role role) {
+        log.info("A role update request was received: {}", role);
+        roleService.updateRole(role);
+        log.info("Role successfully updated: {}", role);
         return ResponseEntity.status(HttpStatus.OK).body("Updated!");
     }
 
-    @DeleteMapping("/deleteAuthor/{id}")
-    public ResponseEntity<String> deleteAuthor(@PathVariable Long id) {
-        log.info("A request to remove author with this ID has been received: {}", id);
-        authorService.deleteAuthor(id);
-        log.info("Author with id {} deleted successfully", id);
+    @DeleteMapping("/deleteRole/{id}")
+    public ResponseEntity<String> deleteRole(@PathVariable Long id) {
+        log.info("A request to delete a role was received with ID: {}", id);
+        roleService.deleteRole(id);
+        log.info("Role with ID {} deleted successfully", id);
         return ResponseEntity.status(HttpStatus.OK).body("Deleted!");
     }
 

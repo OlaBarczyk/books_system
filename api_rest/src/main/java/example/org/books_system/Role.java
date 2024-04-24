@@ -14,7 +14,7 @@ import lombok.Setter;
 @Getter
 @Entity
 @JsonInclude(Include.NON_NULL)
-public class Author {
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
@@ -22,21 +22,22 @@ public class Author {
     private Long id;
 
     @Setter
-    @JsonProperty("firstName")
+    @JsonProperty("name")
     @NotBlank
-    private String firstName;
+    private String name;
     @Setter
-    @JsonProperty("lastName")
+    @JsonProperty("description")
     @NotBlank
-    private String lastName;
+    private String description;
 
     public void setId(Long id) {
         // Validation of incoming ID before setting
         if (id != null) {
             this.id = id;
         } else {
-            throw new IllegalArgumentException("The author ID cannot be null");
+            throw new IllegalArgumentException("The role ID cannot be null");
         }
     }
 
 }
+
