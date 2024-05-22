@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +26,6 @@ public class PublisherServiceImpl implements PublisherService {
         if (publisher.getName() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Validation error: Name of publisher is required!.");
         }
-
         Long id = getNextId();
         publisher.setId(id);
         publishers.add(publisher);

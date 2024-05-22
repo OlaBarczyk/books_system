@@ -26,6 +26,11 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
@@ -36,6 +41,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
@@ -43,7 +53,7 @@
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>2.0.1.Final</version> <!-- Użyj najnowszej dostępnej wersji -->
+            <version>2.0.1.Final</version> <!-- UĹĽyj najnowszej dostÄ™pnej wersji -->
         </dependency>
 
     </dependencies>
@@ -61,7 +71,7 @@
                         </exclude>
                     </excludes>
                 </configuration>
-            </plugin><plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><configuration><source>8</source><target>8</target></configuration></plugin>
+            </plugin><plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><configuration><source>9</source><target>9</target></configuration></plugin>
         </plugins>
     </build>
 
@@ -73,10 +83,10 @@
         </pluginRepository>
     </pluginRepositories>
     <repositories>
-    <repository>
-        <id>h2-repository</id>
-        <url>http://maven.h2database.org/</url>
-    </repository>
+        <repository>
+            <id>h2-repository</id>
+            <url>http://maven.h2database.org/</url>
+        </repository>
     </repositories>
 
 </project>

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -27,16 +26,22 @@ public class Book {
     @JsonProperty("title")
     public String title;
 
+    @Setter
+    @Getter
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "author_id")
     @JsonProperty("author")
     private Author author;
 
+    @Setter
+    @Getter
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "publisher_id")
     @JsonProperty("publisher")
     private Publisher publisher;
 
+    @Setter
+    @Getter
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "genre_id")
     @JsonProperty("genre")
@@ -46,12 +51,11 @@ public class Book {
     @JsonProperty("isbn")
     private long isbn;
 
+    @Setter
     @Getter
     @NotNull
     @JsonProperty("number_of_pages")
     private int number_of_pages;
-
-    // Getters and setters for all other fields (publisher and genre)
 
     public void setISBN(long isbn) {
         this.isbn = isbn;
@@ -59,34 +63,6 @@ public class Book {
 
     public long getISBN() {
         return isbn;
-    }
-
-    public void setNumber_of_pages(int number_of_pages) {
-        this.number_of_pages = number_of_pages;
-    }
-
-    public Author getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
-
-    public Publisher getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(Publisher publisher) {
-        this.publisher = publisher;
-    }
-
-    public Genre getGenre() {
-        return genre;
-    }
-
-    public void setGenre(Genre genre) {
-        this.genre = genre;
     }
 
 

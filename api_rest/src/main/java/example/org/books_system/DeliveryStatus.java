@@ -8,7 +8,10 @@ import jakarta.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
 @Entity
 @JsonInclude(Include.NON_NULL)
 public class DeliveryStatus {
@@ -18,27 +21,18 @@ public class DeliveryStatus {
     @JsonProperty("id")
     private Long id;
 
+    @Setter
     @JsonProperty("name")
     @NotBlank
     private String name;
-
-    public Long getId() {
-        return id;
-    }
 
     public void setId(Long id) {
         // Validation of incoming ID before setting
         if (id != null) {
             this.id = id;
         } else {
-            throw new IllegalArgumentException("The author ID cannot be null");
+            throw new IllegalArgumentException("The delivery status ID cannot be null");
         }
     }
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 }

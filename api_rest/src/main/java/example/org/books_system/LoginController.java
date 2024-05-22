@@ -1,29 +1,53 @@
 package example.org.books_system;
 
-import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.*;
-
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
-public class  LoginController {
+public class LoginController {
 
     @Autowired
     private BookService bookService;
 
-    @GetMapping("/test")
-    public String getTest(@RequestParam(required = false) String name) {
-        return "Hello " + Optional.ofNullable(name).orElse("User");
+    @GetMapping("/home")
+    public String handleWelcome(@RequestHeader(HttpHeaders.AUTHORIZATION) String authValue) {
+        if (authValue != null && authValue.startsWith("Basic ")) {
+            String decodedAuth = new String(Base64.getDecoder().decode(authValue.substring(6)));
+            String[] credentials = decodedAuth.split(":");
+            if (credentials.length == 2 && credentials[0].equals("test") && credentials[1].equals("123456")) {
+                return "home";
+            }
+        }
+        return "Access denied";
     }
 
+    @GetMapping("/admin/home")
+    public String handleAdminHome() {
+        return "home_admin";
+    }
 
-    @PostMapping("/test")
-    public String postTest(@RequestBody String name) {
-        return "Hello " + name;
+    @GetMapping("/user/home")
+    public String handleUserHome() {
+        return "home_user";
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Map<String, String>> postLogin(
+            @RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authValue) {
+        if (authValue!= null && authValue.startsWith("Basic ")) {
+            String decodedAuth = new String(Base64.getDecoder().decode(authValue.substring(6)));
+            String[] credentials = decodedAuth.split(":");
+            if (credentials.length == 2 && "test".equals(credentials[0]) && "123456".equals(credentials[1])) {
+                return generateLoginResponse("Logged in successfully", HttpStatus.OK);
+            }
+        }
+        return generateLoginResponse("Wrong login or password!!!", HttpStatus.UNAUTHORIZED);
     }
 
     // Helper method for generating login response
@@ -32,37 +56,4 @@ public class  LoginController {
         response.put("message", message);
         return new ResponseEntity<>(response, httpStatus);
     }
-
-    @GetMapping("/login")
-    public ResponseEntity<Map<String, String>> getTestLogin(
-            @RequestParam(required = false) String login,
-            @RequestParam(required = false) String password) {
-
-        if (StringUtils.isEmpty(login) || StringUtils.isEmpty(password)) {
-            return generateLoginResponse("Enter your login and password!", HttpStatus.BAD_REQUEST);
-        } else if ("test".equals(login) && "123456".equals(password)) {
-            return generateLoginResponse("The correct data!", HttpStatus.OK);
-        } else {
-            return generateLoginResponse("Wrong login or password!", HttpStatus.UNAUTHORIZED);
-        }
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> postLogin(@RequestBody LoginRequest loginRequest) {
-
-        if (loginRequest.getUsername() == null || loginRequest.getUsername().isEmpty() ||
-                loginRequest.getPassword() == null || loginRequest.getPassword().isEmpty()) {
-            return generateLoginResponse("Enter your login and password!", HttpStatus.BAD_REQUEST);
-        } else if ("test".equals(loginRequest.getUsername()) && "1234".equals(loginRequest.getPassword())) {
-            return generateLoginResponse("The correct data!", HttpStatus.OK);
-        } else {
-            return generateLoginResponse("Wrong login or password!", HttpStatus.UNAUTHORIZED);
-        }
-    }
-
-
-
-
 }
-
-

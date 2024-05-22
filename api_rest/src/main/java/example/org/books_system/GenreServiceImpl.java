@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +26,6 @@ public class GenreServiceImpl implements GenreService {
         if (genre.getName() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Validation error: Name of genre is required.");
         }
-
         Long id = getNextId();
         genre.setId(id);
         genres.add(genre);
@@ -39,7 +37,6 @@ public class GenreServiceImpl implements GenreService {
         if (genre.getId() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Validation error: Genre ID is required.");
         }
-
         Genre existingGenre = findGenreById(genre.getId());
         if (existingGenre == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Genre with ID " + genre.getId() + " has not been found for update");

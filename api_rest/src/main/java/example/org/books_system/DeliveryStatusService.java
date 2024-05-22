@@ -1,8 +1,5 @@
 package example.org.books_system;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 public interface DeliveryStatusService {
@@ -10,8 +7,6 @@ public interface DeliveryStatusService {
     void addDeliveryStatus(DeliveryStatus deliveryStatus);
     void updateDeliveryStatus(DeliveryStatus deliveryStatus);
     void deleteDeliveryStatus(Long id);
-
     DeliveryStatus getDeliveryStatusById(Long deliveryStatusId);
-
     Long getNextId();
 }

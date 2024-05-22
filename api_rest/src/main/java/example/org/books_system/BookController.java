@@ -1,17 +1,19 @@
 package example.org.books_system;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -23,46 +25,69 @@ public class BookController {
 
     @GetMapping("/getBooks")
     public ResponseEntity<List<Book>> getBooks() {
-        List<Book> books = bookService.getBooks();
-        return new ResponseEntity<>(books, HttpStatus.OK);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"))) {
+            List<Book> books = bookService.getBooks();
+            return new ResponseEntity<>(books, HttpStatus.OK);
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
     }
 
     @PutMapping("/addBook")
     public ResponseEntity<String> addBook(@Valid @RequestBody Book book) {
-        log.info("A request to add a book has been received: {}", book.getTitle());
+        log.info("Received request to add book: {}", book.getTitle());
 
-        // Check that all required fields are present
-        if (book.getTitle() == null || book.getAuthor() == null || book.getPublisher() == null || book.getGenre() == null || book.getISBN() == 0 || book.getNumber_of_pages() == 0) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Validation error: All the fields are required.");
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"))) {
+            if (book.getTitle() == null || book.getAuthor() == null || book.getPublisher() == null || book.getGenre() == null || book.getISBN() == 0 || book.getNumber_of_pages() == 0) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Validation error: All fields are required.");
+            }
+
+            bookService.addBook(book);
+            log.info("Book was successfully added: {}", book);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Created!");
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
-
-        bookService.addBook(book);
-        log.info("Book has added successfully: {}", book);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Created!");
     }
-
 
     @PostMapping("/updateBook")
     public ResponseEntity<String> updateBook(@Valid @RequestBody Book book) {
-        log.info("A request to update the book has been received: {}", book.getTitle());
+        log.info("Received request to update book: {}", book.getTitle());
 
-        // Check for null ID before calling updateBook
-        if (book.getId() == null) {
-            log.error("The book requires an ID to be updated (ID)");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Book ID is required for update");
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"))) {
+            if (book.getId() == null) {
+                log.error("Book requires ID to update (ID)");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Book ID is required to update");
+            }
+            bookService.updateBook(book);
+            log.info("Book was successfully updated: {}", book);
+            return ResponseEntity.status(HttpStatus.OK).body("Updated!");
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
-
-        bookService.updateBook(book);
-        log.info("The book has been successfully updated: {}", book);
-        return ResponseEntity.status(HttpStatus.OK).body("Updated!");
     }
 
     @DeleteMapping("/deleteBook/{id}")
     public ResponseEntity<String> deleteBook(@PathVariable Long id) {
-        log.info("A request has been received to remove the book with id: {}", id);
+        log.info("Received request to delete book with id: {}", id);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"))) {
+            bookService.deleteBook(id);
+            log.info("Book with id {} was successfully deleted", id);
+            return ResponseEntity.status(HttpStatus.OK).body("Deleted!");
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+    }
 
-        bookService.deleteBook(id);
-        log.info("Book with id {} has successfully deleted", id);
-        return ResponseEntity.status(HttpStatus.OK).body("Deleted!");
+    // Helper method to check user permissions
+    private boolean hasAccess(String requiredRole) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication != null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals(requiredRole));
     }
 }

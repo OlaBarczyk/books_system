@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +53,6 @@ public class RoleServiceImpl implements RoleService {
         existingRole.setDescription(role.getDescription());
         log.info("Role updated successfully: {}", role);
     }
-
 
     @Override
     public void deleteRole(Long id) {

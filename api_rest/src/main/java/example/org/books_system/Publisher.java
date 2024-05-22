@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import lombok.Setter;
 
 @Entity
 @JsonInclude(Include.NON_NULL)
@@ -17,6 +18,7 @@ public class Publisher {
     @JsonProperty("id")
     private Long id;
 
+    @Setter
     @JsonProperty("name")
     @NotBlank
     private String name;
@@ -37,10 +39,4 @@ public class Publisher {
     public String getName() {
         return name;
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
 }

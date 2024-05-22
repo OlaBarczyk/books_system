@@ -3,7 +3,6 @@ package example.org.books_system;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,7 +13,7 @@ import org.springframework.http.HttpStatus;
 @Service
 public class BookServiceImpl implements BookService {
     private final Logger log = LoggerFactory.getLogger(BookServiceImpl.class);
-    private final List<Book> books = new ArrayList<>(); //List of Books
+    private final List<Book> books = new ArrayList<>();
 
     @Override
     public List<Book> getBooks() {
@@ -80,10 +79,6 @@ public class BookServiceImpl implements BookService {
                 .findFirst()
                 .orElse(null);
     }
-
-
-
-
 
     @Override
     public Long getNextId() {

@@ -8,7 +8,10 @@ import jakarta.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
 @Entity
 @JsonInclude(Include.NON_NULL)
 public class Genre {
@@ -18,14 +21,10 @@ public class Genre {
     @JsonProperty("id")
     private Long id;
 
+    @Setter
     @JsonProperty("name")
     @NotBlank
     private String name;
-
-
-    public Long getId() {
-        return id;
-    }
 
     public void setId(Long id) {
         // Validation of incoming ID before setting
@@ -35,13 +34,4 @@ public class Genre {
             throw new IllegalArgumentException("Genre ID must not be null.");
         }
     }
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
 }

@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,10 +25,9 @@ public class DeliveryStatusServiceImpl implements DeliveryStatusService {
         if (deliveryStatus.getName() == null || deliveryStatus.getName().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Validation error: Delivery_status name is required.");
         }
-
         deliveryStatus.setId(nextId++);
         deliveryStatuses.add(deliveryStatus);
-        log.info("Author successfully added: {}", deliveryStatus);
+        log.info("Delivery status successfully added: {}", deliveryStatus);
     }
 
     @Override
@@ -39,18 +37,13 @@ public class DeliveryStatusServiceImpl implements DeliveryStatusService {
             log.error("Delivery_status with id {} has not been found", deliveryStatus.getId());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Delivery_status with ID" + deliveryStatus.getId() + " has not been found for update");
         }
-
-        // Check that all required fields are present
         if (deliveryStatus.getName() == null || deliveryStatus.getName().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Validation error: Delivery_status name is required.");
         }
-
-
         existingDeliveryStatus.setName(deliveryStatus.getName());
 
         log.info("Delivery_status updated successfully: {}", deliveryStatus);
     }
-
 
     @Override
     public void deleteDeliveryStatus(Long id) {
