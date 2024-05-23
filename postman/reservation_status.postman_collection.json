@@ -1,0 +1,105 @@
+{
+	"info": {
+		"_postman_id": "a79444b3-f6fe-40d5-949d-086d7425e0ae",
+		"name": "reservation_status",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33507404"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/getReservationStatuses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/getReservationStatuses",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getReservationStatuses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/addReservationStatus",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\": \"reserved\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/addReservationStatus",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"addReservationStatus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/updateReservationStatus",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"status\": \"cancelled\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/updateReservationStatus",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"updateReservationStatus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/deleteReservationStatus/1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/deleteReservationStatus/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"deleteReservationStatus",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

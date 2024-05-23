@@ -1,0 +1,79 @@
+{
+	"info": {
+		"_postman_id": "bc0b5671-3365-4d35-b030-226ae77b268f",
+		"name": "notifications",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33507404"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/getNotifications",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhot:8080/addNotification",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhot:8080/addNotification",
+					"protocol": "http",
+					"host": [
+						"localhot"
+					],
+					"port": "8080",
+					"path": [
+						"addNotification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/updateNotification",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/updateNotification",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"updateNotification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/deleteNotification/1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/deleteNotification/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"deleteNotification",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

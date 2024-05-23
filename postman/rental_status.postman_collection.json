@@ -1,0 +1,105 @@
+{
+	"info": {
+		"_postman_id": "fea698f9-3dfa-445d-b08a-9d9d9e0c3f47",
+		"name": "rental_status",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33507404"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/getRentalStatuses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/getRentalStatuses",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getRentalStatuses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/addRentalStatus",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\": \"rent\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/addRentalStatus",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"addRentalStatus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/updateRentalStatus",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"status\": \"held\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/updateRentalStatus",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"updateRentalStatus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/deleteRentalStatus/1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/deleteRentalStatus/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"deleteRentalStatus",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

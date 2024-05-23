@@ -1,0 +1,29 @@
+{
+	"info": {
+		"_postman_id": "7379256c-da4f-493b-be18-763b3c752c94",
+		"name": "home",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33507404"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/home",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/home",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"home"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

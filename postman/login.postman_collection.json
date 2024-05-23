@@ -1,0 +1,39 @@
+{
+	"info": {
+		"_postman_id": "f836d11a-6dbc-4a2e-b129-45ba99838422",
+		"name": "login",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33507404"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/login?login=librarystaff&password=LibrarySecure123",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					],
+					"query": [
+						{
+							"key": "login",
+							"value": "librarystaff"
+						},
+						{
+							"key": "password",
+							"value": "LibrarySecure123"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
