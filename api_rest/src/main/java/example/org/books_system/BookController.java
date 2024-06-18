@@ -41,7 +41,7 @@ public class BookController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"))) {
-            if (book.getTitle() == null || book.getAuthor() == null || book.getPublisher() == null || book.getGenre() == null || book.getISBN() == 0 || book.getNumber_of_pages() == 0) {
+            if (book.getTitle() == null || book.getAuthor() == null || book.getPublisher() == null || book.getGenre() == null || book.getISBN() == 0 || book.getNumberOfPages() == 0) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Validation error: All fields are required.");
             }
 

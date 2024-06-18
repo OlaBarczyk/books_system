@@ -49,20 +49,20 @@ public class Book {
 
     @NotNull
     @JsonProperty("isbn")
-    private long isbn;
+    private long ISBN;
 
     @Setter
     @Getter
     @NotNull
     @JsonProperty("number_of_pages")
-    private int number_of_pages;
+    private Integer numberOfPages;
 
     public void setISBN(long isbn) {
-        this.isbn = isbn;
+        this.ISBN = ISBN;
     }
 
     public long getISBN() {
-        return isbn;
+        return ISBN;
     }
 
 
