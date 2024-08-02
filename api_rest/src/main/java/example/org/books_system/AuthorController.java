@@ -28,7 +28,7 @@ public class AuthorController {
     @GetMapping("/getAuthors")
     public ResponseEntity<List<Author>> getAuthors() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"))) {
+        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER") || authority.getAuthority().equals("ROLE_ADMIN"))) {
             List<Author> authors = authorService.getAuthors();
             return new ResponseEntity<>(authors, HttpStatus.OK);
         } else {

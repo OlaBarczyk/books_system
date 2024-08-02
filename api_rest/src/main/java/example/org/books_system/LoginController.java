@@ -1,59 +1,64 @@
 package example.org.books_system;
 
+import example.org.books_system.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
-import java.util.Base64;
+
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/api")
 public class LoginController {
 
     @Autowired
-    private BookService bookService;
+    private LoginService loginService;
+
+    @Autowired
+    private JwtUtils jwtUtils;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @GetMapping("/home")
-    public String handleWelcome(@RequestHeader(HttpHeaders.AUTHORIZATION) String authValue) {
-        if (authValue != null && authValue.startsWith("Basic ")) {
-            String decodedAuth = new String(Base64.getDecoder().decode(authValue.substring(6)));
-            String[] credentials = decodedAuth.split(":");
-            if (credentials.length == 2 && credentials[0].equals("test") && credentials[1].equals("123456")) {
-                return "home";
-            }
-        }
-        return "Access denied";
+    @PreAuthorize("isAuthenticated()")
+    public String handleWelcome() {
+        return "home";
     }
 
     @GetMapping("/admin/home")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String handleAdminHome() {
         return "home_admin";
     }
 
     @GetMapping("/user/home")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public String handleUserHome() {
         return "home_user";
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> postLogin(
-            @RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authValue) {
-        if (authValue!= null && authValue.startsWith("Basic ")) {
-            String decodedAuth = new String(Base64.getDecoder().decode(authValue.substring(6)));
-            String[] credentials = decodedAuth.split(":");
-            if (credentials.length == 2 && "test".equals(credentials[0]) && "123456".equals(credentials[1])) {
-                return generateLoginResponse("Logged in successfully", HttpStatus.OK);
-            }
+    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+        if (!loginService.login(loginRequest.getLogin(), loginRequest.getPassword())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
-        return generateLoginResponse("Wrong login or password!!!", HttpStatus.UNAUTHORIZED);
+
+        UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getLogin());
+        String jwt = jwtUtils.generateToken(userDetails);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Login successful!");
+        response.put("jwt", jwt);
+        return ResponseEntity.ok(response);
     }
 
-    // Helper method for generating login response
-    private ResponseEntity<Map<String, String>> generateLoginResponse(String message, HttpStatus httpStatus) {
-        Map<String, String> response = new HashMap<>();
-        response.put("message", message);
-        return new ResponseEntity<>(response, httpStatus);
+    @PostMapping("/register")
+    public ResponseEntity<RegisterResponse> postRegister(@RequestBody RegisterRequest registerRequest) {
+        return ResponseEntity.ok(loginService.register(registerRequest));
     }
 }

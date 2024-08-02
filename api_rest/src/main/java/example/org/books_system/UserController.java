@@ -32,8 +32,8 @@ public class UserController {
     public ResponseEntity<String> addUser(@Valid @RequestBody User user) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"))) {
-            log.info("A request to add a user has been received: {}", user.getFirstName());
-            if (user.getFirstName() == null || user.getRole() == null || user.getLastName() == null || user.getUsername() == null || user.getPassword() == null || user.getEmail() == null || user.getToken() == null || user.getPhone() == null) {
+            log.info("A request to add a user has been received: {}", user.getLogin());
+            if (user.getLogin() == null || user.getPassword() == null || user.getToken() == null) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Validation error: All the fields are required.");
             }
             userService.addUser(user);
@@ -48,7 +48,7 @@ public class UserController {
     public ResponseEntity<String> updateUser(@Valid @RequestBody User user) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"))) {
-            log.info("A request to update the user has been received: {}", user.getFirstName());
+            log.info("A request to update the user has been received: {}", user.getLogin());
             if (user.getId() == null) {
                 log.error("The user requires an ID to be updated (ID)");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User ID is required for update");

@@ -1,16 +1,12 @@
-# flutter_vscode
+# Database
+## Database schema is in db folder.
 
-A new Flutter project.
+# Demo UI to test
+## WIP: Demo Frontend written in Dart using Flutter.
 
-## Getting Started
+# Rest API
+## Rest API (Java Spring Framework) is in api_rest folder.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Database
+## MySQL exported database to db folder.
