@@ -10,4 +10,3 @@
 
 # Database
 ## MySQL exported database to db folder.
-
