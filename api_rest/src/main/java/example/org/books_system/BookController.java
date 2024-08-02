@@ -28,8 +28,13 @@ public class BookController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"))) {
             List<Book> books = bookService.getBooks();
+            System.out.println("List of books:" + books.size());
+            for(Book book: books) {
+                System.out.println(book.getTitle());
+            }
             return new ResponseEntity<>(books, HttpStatus.OK);
         } else {
+            System.out.println("Error by getting books");
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
     }

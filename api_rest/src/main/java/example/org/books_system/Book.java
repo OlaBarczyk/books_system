@@ -47,9 +47,11 @@ public class Book {
     @JsonProperty("genre")
     private Genre genre;
 
+    @Setter
+    @Getter
     @NotNull
     @JsonProperty("isbn")
-    private long ISBN;
+    private Long ISBN;
 
     @Setter
     @Getter
@@ -57,13 +59,7 @@ public class Book {
     @JsonProperty("number_of_pages")
     private Integer numberOfPages;
 
-    public void setISBN(long isbn) {
-        this.ISBN = ISBN;
-    }
 
-    public long getISBN() {
-        return ISBN;
-    }
 
 
     public void setId(Long id) {
