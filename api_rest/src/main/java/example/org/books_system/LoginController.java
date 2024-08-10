@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +15,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
 public class LoginController {
 
     @Autowired
@@ -34,7 +35,13 @@ public class LoginController {
     @GetMapping("/admin/home")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String handleAdminHome() {
-        return "home_admin";
+        /*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER") || authority.getAuthority().equals("ROLE_ADMIN"))) {
+            return "home_admin";
+        }
+        return "You must be admin!";
+        */
+         return "Success!";
     }
 
     @GetMapping("/user/home")

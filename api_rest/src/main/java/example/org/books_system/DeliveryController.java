@@ -26,7 +26,7 @@ public class DeliveryController {
     @GetMapping("/getDeliveries")
     public ResponseEntity<List<Delivery>> getDeliveries() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"))) {
+        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER") || authority.getAuthority().equals("ROLE_ADMIN"))) {
             List<Delivery> deliveries = deliveryService.getDeliveries();
             return new ResponseEntity<>(deliveries, HttpStatus.OK);
         } else {

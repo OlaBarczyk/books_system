@@ -26,7 +26,7 @@ public class NotificationController {
     @GetMapping("/getNotifications")
     public ResponseEntity<List<Notification>> getNotifications() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"))) {
+        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER") || authority.getAuthority().equals("ROLE_ADMIN"))) {
             List<Notification> notifications = notificationService.getNotifications();
             return new ResponseEntity<>(notifications, HttpStatus.OK);
         } else {
