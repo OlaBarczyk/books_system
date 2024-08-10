@@ -26,7 +26,7 @@ public class PaymentController {
     @GetMapping("/getPayments")
     public ResponseEntity<List<Payment>> getPayments() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"))) {
+        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER") || authority.getAuthority().equals("ROLE_ADMIN"))) {
             List<Payment> payments = paymentService.getPayments();
             return new ResponseEntity<>(payments, HttpStatus.OK);
         } else {

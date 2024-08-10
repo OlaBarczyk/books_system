@@ -26,7 +26,7 @@ public class PublisherController {
     @GetMapping("/getPublishers")
     public ResponseEntity<List<Publisher>> getPublishers() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"))) {
+        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER") || authority.getAuthority().equals("ROLE_ADMIN"))) {
             List<Publisher> publishers = publisherService.getPublishers();
             return new ResponseEntity<>(publishers, HttpStatus.OK);
         } else {

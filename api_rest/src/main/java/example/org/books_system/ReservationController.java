@@ -20,7 +20,7 @@ public class ReservationController {
     @GetMapping("/getReservations")
     public ResponseEntity<List<Reservation>> getReservations() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"))) {
+        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER") || authority.getAuthority().equals("ROLE_ADMIN"))) {
             List<Reservation> reservations = reservationService.getReservations();
             return new ResponseEntity<>(reservations, HttpStatus.OK);
         } else {

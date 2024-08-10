@@ -27,7 +27,7 @@ public class SecurityConfig {
                 ) // Disable CSRF protection (consider enabling it if possible)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/", "/home", "/api/register", "/api/login").permitAll()
+                        .requestMatchers("/", "/home", "/register", "/login").permitAll()
                         .anyRequest().authenticated()
                 )
 

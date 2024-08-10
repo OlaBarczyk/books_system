@@ -26,7 +26,7 @@ public class BookController {
     @GetMapping("/getBooks")
     public ResponseEntity<List<Book>> getBooks() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"))) {
+        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER") || authority.getAuthority().equals("ROLE_ADMIN"))) {
             List<Book> books = bookService.getBooks();
             System.out.println("List of books:" + books.size());
             for(Book book: books) {

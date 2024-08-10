@@ -26,7 +26,7 @@ public class ReservationStatusController {
     @GetMapping("/getReservationStatuses")
     public ResponseEntity<List<ReservationStatus>> getReservationStatuses() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"))) {
+        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER") || authority.getAuthority().equals("ROLE_ADMIN"))) {
             List<ReservationStatus> reservationStatuses = reservationStatusService.getReservationStatuses();
             return new ResponseEntity<>(reservationStatuses, HttpStatus.OK);
         } else {

@@ -26,7 +26,7 @@ public class QueueStatusController {
     @GetMapping("/getQueueStatuses")
     public ResponseEntity<List<QueueStatus>> getQueueStatuses() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"))) {
+        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER") || authority.getAuthority().equals("ROLE_ADMIN"))) {
             List<QueueStatus> queueStatuses = queueStatusService.getQueueStatuses();
             return new ResponseEntity<>(queueStatuses, HttpStatus.OK);
         } else {

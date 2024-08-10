@@ -23,7 +23,7 @@ public class RoleController {
     @GetMapping("/getRoles")
     public ResponseEntity<List<Role>> getRoles() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"))) {
+        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER") || authority.getAuthority().equals("ROLE_ADMIN"))) {
             List<Role> roles = roleService.getRoles();
             return new ResponseEntity<>(roles, HttpStatus.OK);
         } else {

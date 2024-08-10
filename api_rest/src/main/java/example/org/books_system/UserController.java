@@ -20,7 +20,7 @@ public class UserController {
     @GetMapping("/getUsers")
     public ResponseEntity<List<User>> getUsers() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"))) {
+        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER") || authority.getAuthority().equals("ROLE_ADMIN"))) {
             List<User> users = userService.getUsers();
             return new ResponseEntity<>(users, HttpStatus.OK);
         } else {

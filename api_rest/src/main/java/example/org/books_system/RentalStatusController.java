@@ -26,7 +26,7 @@ public class RentalStatusController {
     @GetMapping("/getRentalStatuses")
     public ResponseEntity<List<RentalStatus>> getRentalStatuses() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"))) {
+        if (authentication!= null && authentication.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_USER") || authority.getAuthority().equals("ROLE_ADMIN"))) {
             List<RentalStatus> rentalStatuses = rentalStatusService.getRentalStatuses();
             return new ResponseEntity<>(rentalStatuses, HttpStatus.OK);
         } else {
