@@ -1,0 +1,19 @@
+# Pobierz najnowszy stabilny obraz Fluttera
+FROM ghcr.io/cirruslabs/flutter:latest AS build
+
+WORKDIR /app
+COPY . .
+
+# Sprawdź wersję Fluttera (opcjonalne)
+RUN flutter --version
+
+# Ustaw wersję SDK Fluttera (jeśli wymagana)
+RUN flutter pub get
+
+# Budowanie aplikacji webowej Flutter
+RUN flutter build web
+
+# Użyj Nginx do serwowania aplikacji
+FROM nginx:alpine
+COPY --from=build /app/build/web /usr/share/nginx/html
+EXPOSE 3000

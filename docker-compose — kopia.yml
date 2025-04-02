@@ -1,0 +1,48 @@
+version: '3.9'
+services:
+  backend:
+    image: my-backend:latest
+    container_name: backend	
+    build:
+      context: ./books_system
+    ports:
+      - "8080:8080"
+    networks:
+      - mynetwork
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/mydb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: example
+      SPRING_WEB_CORS_ALLOWED_ORIGINS: http://frontend:3000
+    depends_on:
+      - database
+
+  database:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306"
+
+  frontend:
+    image: my-frontend:latest
+    container_name: frontend
+    build:
+      context: ./flutter_vscode
+    ports:
+      - "3000:3000"
+    networks:
+      - mynetwork
+    depends_on:
+      - backend
+
+volumes:
+  db_data:
+
+networks: 
+  mynetwork: 
+    driver: bridge

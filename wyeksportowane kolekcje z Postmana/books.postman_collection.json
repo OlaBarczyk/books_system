@@ -1,0 +1,112 @@
+{
+	"info": {
+		"_postman_id": "27afb039-dd9f-477c-a607-1a36999cdece",
+		"name": "books",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33507404"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/getBooks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/getBooks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getBooks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/addBook",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"title\": \"Potop\",\r\n \"author\": {\r\n    \"id\": 1,\r\n    \"name\": \"Henryk Sienkiewicz\"\r\n },\r\n \"publisher\": {\r\n    \"id\": 1,\r\n    \"name\": \"Wydawnictwo Literackie\"\r\n },\r\n \"genre\": {\r\n    \"id\": 1,\r\n    \"name\": \"Powieść historyczna\"\r\n },\r\n \"isbn\": 1234567890,\r\n \"number_of_pages\": 300\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/addBook",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"addBook"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/updateBook",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"id\": 1,\r\n \"title\": \"Pan Wolodyjowski\",\r\n \"author\": {\r\n    \"id\": 1,\r\n    \"name\": \"Henryk Sienkiewicz\"\r\n },\r\n \"publisher\": {\r\n    \"id\": 1,\r\n    \"name\": \"Wydawnictwo Literackie\"\r\n },\r\n \"genre\": {\r\n    \"id\": 2,\r\n    \"name\": \"Powieść historyczna\"\r\n },\r\n \"isbn\": 1234567890,\r\n \"number_of_pages\": 300\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/updateBook",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"updateBook"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/deleteBook/1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/deleteBook/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"deleteBook",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
